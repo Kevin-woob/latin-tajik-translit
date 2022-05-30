@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+
+</head>
+<body>
+<div>
+	<textarea id="original" style="width:100%;height:20%;" data-text="" placeholder='original text'></textarea>
+</div>
+<div>
+	<textarea id="translated" style="width:100%;height:20%;"  data-text="" placeholder='transliterated text'></textarea>
+</div>
+	<script type="text/javascript">
+	window.original = document.getElementById('original');
+	let t = document.getElementById('translated');
+ var tajik = ["A","а","Б","б","C","c","Д","д","Е","е","Ф","ф","Г","г","Ҳ","ҳ","И","и","Ҷ","ҷ","К","к","Л","л","М","м","Н","н","О","о","П","п","Қ","қ","Р","р","С","с","Т","т","У","у","В","в","В","в","Х","х","Й","й","З","з"];
+
+ var latin = ["A","a","B","b","C","c","D","d","E","e","F","f","G","g","H","h","I","i","J","j","K","k","L","l","M","m","N","n","O","o","P","p","Q","q","R","r","S","s","T","t","U","u","V","v","W","w","X","x","Y","y","Z","z"];
+ var w = 'Ҷ ҷ Ғ ғ Ю ю ';
+
+
+
+
+
+	original.addEventListener('input', () => {
+		var s = '';
+		var letters = original.value.replaceAll("CH","Ч").replaceAll("Ch","Ч").replaceAll("ch","ч")
+		.replaceAll("SH","Ш").replaceAll("Sh","Ш").replaceAll("sh","ш")
+		.replaceAll("KH","X").replaceAll("Kh","X").replaceAll("kh","x")
+		.replaceAll("GH","Ғ").replaceAll("Gh","Ғ").replaceAll("gh","ғ")
+		.replaceAll("YU","Ю").replaceAll("Yu","Ю").replaceAll("yu","ю")
+		.replaceAll("Ya","Я").replaceAll("Ya","Я").replaceAll("ya","я");
+		letters = letters.split('');
+		for (var i = 0; i < letters.length; i++) {
+			
+			if (tajik[latin.indexOf(letters[i])] != undefined) {
+				s = s + tajik[latin.indexOf(letters[i])];
+			}
+			else{
+				s = s +letters[i];
+			}
+			
+			
+		}
+    t.setAttribute('data-text', s)
+
+    t.innerHTML = t.getAttribute('data-text')
+
+    if ((original.value).length === 0) {
+      t.innerHTML = '...'
+    }
+  });
+</script>
+</body>
+</html>
